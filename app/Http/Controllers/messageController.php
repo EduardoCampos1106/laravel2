@@ -136,8 +136,16 @@ class messageController extends Controller
      * @param  \App\messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function destroy(messages $messages)
+    public function delete($id)
     {
-        //
+        $obj_Messages = Messages::find($id);
+        return view('messages.delete',['messages' => $obj_Messages]);
+    }
+    public function destroy($id)
+    {
+        $obj_Messages = Messages::findOrFail($id);
+        $obj_Messages->delete($id);
+        return redirect('/messages')->with('success', 'Mensagem deletada com sucesso!!');
+
     }
 }
